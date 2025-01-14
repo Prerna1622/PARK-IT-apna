@@ -6,6 +6,10 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors'); //backened entertain the front request
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/User');
+//By Prerna
+const bookingRoutes = require('./routes/Booking');
+
+//.
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -23,6 +27,10 @@ app.use(
 )
 
 app.use("/api/v1/auth", userRoutes);
+//By Prerna
+app.use('/api/v1/booking', bookingRoutes);
+
+//.
 
 //default route
 app.get("/", (req, res) => {
