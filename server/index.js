@@ -6,16 +6,33 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors'); //backened entertain the front request
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/User');
+
 //By Prerna
 const bookingRoutes = require('./routes/Booking');
 
 //.
+
+const vehicleRoutes = require('./routes/Vehicle');
+const {cloudinaryConnect} = require('./config/cloudinary');
+const fileUpload = require('express-fileupload');
+
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 
 //database connect
 database.connect();
+
+//cloudinary connect
+cloudinaryConnect();
+
+app.use(
+    fileUpload({
+        useTempFiles: true,
+        tempFileDir: "/tmp",
+    })
+)
+
 //middleware
 app.use(express.json());
 app.use(cookieParser());
@@ -27,10 +44,14 @@ app.use(
 )
 
 app.use("/api/v1/auth", userRoutes);
+
 //By Prerna
 app.use('/api/v1/booking', bookingRoutes);
 
 //.
+
+app.use("/api/v1/vehicle", vehicleRoutes);
+
 
 //default route
 app.get("/", (req, res) => {

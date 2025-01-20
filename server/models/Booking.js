@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-exports.bookingSchema = new mongoose.Schema({
+const bookingSchema = new mongoose.Schema({
     startTime:{
         type:Date,
         default:Date.now,
@@ -24,6 +24,10 @@ exports.bookingSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Vehicle"
     },
+    spot:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Spot"
+    }
 
 })
 

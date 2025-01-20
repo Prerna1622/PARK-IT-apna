@@ -9,7 +9,7 @@ exports.auth = async (req, res, next) => {
 
         // /if token missing
         if(!token) {
-            return res.ststus(401).json(
+            return res.status(401).json(
                 {
                     success:false,
                     message:"Token is missing"
