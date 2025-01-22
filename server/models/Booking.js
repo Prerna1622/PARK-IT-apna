@@ -12,9 +12,9 @@ const bookingSchema = new mongoose.Schema({
         type:Number
     },
     paymentType: {
-        type:String,
-        enum:["Online", "Cash"],
-        default:"Online"
+        type: String,
+        enum: ["Online", "Cash"],
+        default: "Online",
     },
     payment: {
         type:mongoose.Schema.Types.ObjectId,
@@ -22,13 +22,15 @@ const bookingSchema = new mongoose.Schema({
     },
     vehicle: {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Vehicle"
+        ref:"Vehicle",
+        required:true
     },
     spot:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Spot"
+        ref:"Spot",
+        required:true
     }
-
+    
 })
 
 module.exports = mongoose.model("Booking", bookingSchema);
