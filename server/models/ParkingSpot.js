@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const mongoose = require("mongoose")
 
 const spotSchema = new mongoose.Schema({
@@ -8,6 +9,18 @@ const spotSchema = new mongoose.Schema({
     spotSize: {
         type:Number,
         required: true
+=======
+const mongoose = require("mongoose");
+
+const parkingSpotSchema = new mongoose.Schema({
+    location: {
+        type: String,
+        required: true, // Ensure location is required
+    },
+    spotSize: {
+        type: String,
+        required: true,
+>>>>>>> aa8c0c8c7070cd41ab09bdf30cf9b84a81997988
     },
     avalabilityStatus:{
         type:String,
