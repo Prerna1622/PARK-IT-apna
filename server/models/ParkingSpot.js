@@ -9,6 +9,9 @@ const parkingSpotSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    spotImage: {
+        type: String
+    },
     availabilityStatus: {
         type: String,
         enum: ["Available", "Occupied", "Inactive"], // Predefined values
@@ -30,6 +33,12 @@ const parkingSpotSchema = new mongoose.Schema({
             ref: "Booking",
         },
     ],
+    spotImage: {
+        type: String,
+    },
+    address: {
+        type:String,
+    }
 }, {
     timestamps: true, // Adds createdAt and updatedAt fields
 });

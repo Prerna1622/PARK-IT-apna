@@ -13,7 +13,6 @@ export const SignupForm = () => {
     const location = useLocation();
     const dispatch = useDispatch();
 
-    // student or instructor
     const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT);
 
     const [formData, setFormData] = useState({
@@ -28,7 +27,6 @@ export const SignupForm = () => {
 
     const { fullName, email, password, confirmPassword } = formData;
 
-    // Handle input fields, when some value changes
     const handleOnChange = (e) => {
         setFormData((prevData) => ({
             ...prevData,
@@ -36,7 +34,6 @@ export const SignupForm = () => {
         }));
     };
 
-    // Handle Form Submission
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
@@ -49,16 +46,17 @@ export const SignupForm = () => {
             accountType,
         };
 
-        // Setting signup data to state
-        // To be used after OTP verification
         dispatch(setSignupData(signupData));
+<<<<<<< HEAD
         dispatch(sendOtp(formData.email, () => {
             // Handle navigation after signup
             const redirectPath = location.state?.redirectTo || "/"; // Default to home if no redirect path
             navigate(redirectPath); // Navigate to the intended page
         }));
+=======
+        dispatch(sendOtp(formData.email, navigate));
+>>>>>>> 8e7f2422e247b47f062c502fd0cc0ca2246a6464
 
-        // Reset
         setFormData({
             fullName: "",
             email: "",
@@ -69,90 +67,89 @@ export const SignupForm = () => {
     };
 
     return (
-        <form onSubmit={handleOnSubmit} className="max-w-md mx-auto space-y-3">
+        <form
+            onSubmit={handleOnSubmit}
+            className="max-w-md mx-auto space-y-6 bg-pure-greys-800 text-white rounded-md"
+        >
             {/* Full Name */}
-            <div>
-                <label className="block mb-2 text-gray-700 font-medium text-sm sm:text-base">
-                    Full Name <sup className="text-pink-200">*</sup>
-                </label>
+            <div className="relative z-0 w-full group">
                 <input
                     required
                     type="text"
                     name="fullName"
                     value={fullName}
                     onChange={handleOnChange}
-                    placeholder="Enter Full Name"
-                    className="w-full px-4 py-1 border border-gray-300 rounded-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder=" "
+                    className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-[#2E3333] peer"
                 />
+                <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#A2B5BB]">
+                    Full Name <sup className="text-pink-200">*</sup>
+                </label>
             </div>
 
             {/* Email Address */}
-            <div>
-                <label className="block mb-2 text-gray-700 font-medium text-sm sm:text-base">
-                    Email Address <sup className="text-pink-200">*</sup>
-                </label>
+            <div className="relative z-0 w-full group">
                 <input
                     required
-                    type="text"
+                    type="email"
                     name="email"
                     value={email}
                     onChange={handleOnChange}
-                    placeholder="Enter Email Address"
-                    className="w-full px-4 py-1 border border-gray-300 rounded-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder=" "
+                    className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-[#2E3333] peer"
                 />
+                <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#A2B5BB]">
+                    Email Address <sup className="text-pink-200">*</sup>
+                </label>
             </div>
 
             {/* Password */}
-            <div>
-                <label className="block mb-2 text-gray-700 font-medium text-sm sm:text-base">
+            <div className="relative z-0 w-full group">
+                <input
+                    required
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={password}
+                    onChange={handleOnChange}
+                    placeholder=" "
+                    className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-[#2E3333] peer"
+                />
+                <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#A2B5BB]">
                     Create Password <sup className="text-pink-200">*</sup>
                 </label>
-                <div className="relative">
-                    <input
-                        required
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        value={password}
-                        onChange={handleOnChange}
-                        placeholder="Enter Password"
-                        className="w-full px-4 py-1 border border-gray-300 rounded-sm"
-                    />
-                    <span
-                        onClick={() => setShowPassword((prev) => !prev)}
-                        className="absolute right-3 top-2.5 text-gray-500 cursor-pointer"
-                    >
-                        {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                    </span>
-                </div>
+                <span
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-3 text-gray-400 cursor-pointer"
+                >
+                    {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </span>
             </div>
 
             {/* Confirm Password */}
-            <div>
-                <label className="block mb-2 text-gray-700 font-medium text-sm sm:text-base">
+            <div className="relative z-0 w-full group">
+                <input
+                    required
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    onChange={handleOnChange}
+                    placeholder=" "
+                    className="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-[#2E3333] peer"
+                />
+                <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 peer-focus:text-[#A2B5BB]">
                     Confirm Password <sup className="text-pink-200">*</sup>
                 </label>
-                <div className="relative">
-                    <input
-                        required
-                        type={showConfirmPassword ? "text" : "password"}
-                        name="confirmPassword"
-                        value={confirmPassword}
-                        onChange={handleOnChange}
-                        placeholder="Confirm Password"
-                        className="w-full px-4 py-1 border border-gray-300 rounded-sm"
-                    />
-                    <span
-                        onClick={() => setShowConfirmPassword((prev) => !prev)}
-                        className="absolute right-3 top-2.5 text-gray-500 cursor-pointer"
-                    >
-                        {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                    </span>
-                </div>
+                <span
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                    className="absolute right-3 top-3 text-gray-400 cursor-pointer"
+                >
+                    {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                </span>
             </div>
 
             <button
                 type="submit"
-                className="w-full py-2 bg-[#111827] text-white font-medium rounded-sm hover:bg-[#1f2937] transition text-sm sm:text-base"
+                className="w-full py-2 bg-[#111827] text-white font-medium rounded-sm hover:bg-[#1f2937] transition"
             >
                 Create Account
             </button>
