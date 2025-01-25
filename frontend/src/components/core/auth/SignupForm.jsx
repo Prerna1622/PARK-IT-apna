@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation} from "react-router-dom";
 
 import { sendOtp } from "../../../services/operations/authAPI";
 import { setSignupData } from "../../../slices/authSlice";
@@ -10,6 +10,7 @@ import { ACCOUNT_TYPE } from "../../../utils/constants";
 
 export const SignupForm = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useDispatch();
 
     // student or instructor
@@ -51,8 +52,11 @@ export const SignupForm = () => {
         // Setting signup data to state
         // To be used after OTP verification
         dispatch(setSignupData(signupData));
-        // send OTP to user for verification
-        dispatch(sendOtp(formData.email, navigate));
+        dispatch(sendOtp(formData.email, () => {
+            // Handle navigation after signup
+            const redirectPath = location.state?.redirectTo || "/"; // Default to home if no redirect path
+            navigate(redirectPath); // Navigate to the intended page
+        }));
 
         // Reset
         setFormData({

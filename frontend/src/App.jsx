@@ -10,6 +10,10 @@ import { Signup } from './pages/Signup'
 import { OpenRoute } from './components/core/auth/OpenRoute'
 import { VerifyEmail } from './pages/VerifyEmail'
 import { Navbar } from './components/user/global/Navbar'
+import PrivateRoute from './components/core/auth/PrivateRoute'
+import { Spot } from './components/user/global/Spot'
+
+
 
 export const App = () => {
 
@@ -32,11 +36,11 @@ export const App = () => {
         
         <Navbar />
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/terms-conditions" element={<TermsAndConditionPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/refund-policy" element={<ReturnRefundPolicy />} />
-
+          {/* <Route path="/refund-policy" element={<ReturnRefundPolicy />} /> */}
           <Route path="signup" 
                  element={
                     <OpenRoute>
@@ -62,6 +66,14 @@ export const App = () => {
         }
       />
 
+      <Route path="/spots"
+       element={
+          <PrivateRoute>
+            <Spot />
+          </PrivateRoute>
+        }
+        />
+       
         
         </Routes>
 
