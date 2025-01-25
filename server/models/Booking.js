@@ -27,7 +27,7 @@ const bookingSchema = new mongoose.Schema({
     },
     spot:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Spot",
+        ref:"ParkingSpot",
         required:true
     }
     

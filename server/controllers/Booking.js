@@ -1,7 +1,8 @@
-const Booking = require('../models/Booking');
 const mongoose = require('mongoose');
+const ParkingSpot = require('../models/ParkingSpot'); // Adjust the path to match your project structure
+const Vehicle = require('../models/Vehicle');
+const Booking = require('../models/Booking');
 const Payment = require('../models/Payment');
-const ParkingSpot = require('../models/ParkingSpot'); 
 
 
 
@@ -52,12 +53,28 @@ exports.createBooking = async (req, res) => {
         );
 
         if (!updatedSpot) {
-            return res.status(404).json({ message: "Parking spot not found" });
+            return res.status(404).json({
+                success:false,
+                 message: "Parking spot not found"
+                 });
         }
+        const populatedBooking = await Booking.findById(savedBooking._id)
+            .populate('vehicle') // Include vehicle details
+            .populate('spot'); // Include spot details
 
-        res.status(201).json({ booking: savedBooking, spot: updatedSpot });
+        res.status(201).json({
+            success: true,
+            message: "Booking created successfully",
+            booking: populatedBooking,
+            spot: populatedBooking.spot,
+            vehicle: populatedBooking.vehicle,
+            });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ 
+            success:false,
+            message: "Booking not created successfully",
+            error: error.message
+         });
     }
 };
 

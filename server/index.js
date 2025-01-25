@@ -45,7 +45,7 @@ app.use(
 
 // Routes
 app.use("/api/v1/auth", userRoutes);
-<<<<<<< HEAD
+
 
 //By Prerna
 app.use('/api/v1/booking', bookingRoutes);
@@ -53,9 +53,8 @@ app.use('/api/v1/booking', bookingRoutes);
 //.
 
 app.use("/api/v1/spot", spotRoutes); // Add Spot Routes
-=======
-app.use("/api/v1/spot", spotRoutes);
->>>>>>> aa8c0c8c7070cd41ab09bdf30cf9b84a81997988
+
+
 app.use("/api/v1/vehicle", vehicleRoutes);
 
 

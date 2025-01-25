@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-const mongoose = require("mongoose")
-
-const spotSchema = new mongoose.Schema({
-    location:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref: "Location"
-    },
-    spotSize: {
-        type:Number,
-        required: true
-=======
 const mongoose = require("mongoose");
 
 const parkingSpotSchema = new mongoose.Schema({
@@ -20,26 +8,31 @@ const parkingSpotSchema = new mongoose.Schema({
     spotSize: {
         type: String,
         required: true,
->>>>>>> aa8c0c8c7070cd41ab09bdf30cf9b84a81997988
     },
-    avalabilityStatus:{
-        type:String,
-        enum:["Available", "Occupied", "Inactive"],
-        default: "Available"
+    availabilityStatus: {
+        type: String,
+        enum: ["Available", "Occupied", "Inactive"], // Predefined values
+        default: "Available",
     },
     pricePerHour: {
-        type:Number
+        type: Number,
+        required: true, // Price per hour is required
     },
+
     verification: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Verification"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Verification", // Reference to the Verification model
+        required: true,
     },
     bookings: [
         {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"Booking"
-        }
-    ]
-})
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Booking",
+        },
+    ],
+}, {
+    timestamps: true, // Adds createdAt and updatedAt fields
+});
 
-module.exports = mongoose.model("ParkingSpot", spotSchema);
+// Export the model
+module.exports = mongoose.model("ParkingSpot", parkingSpotSchema);
